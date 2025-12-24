@@ -15,12 +15,12 @@
 
         body {
             background: #0a0a0a;
-            color: #00ff00;
+            color: #ff69b4;
             font-family: 'Press Start 2P', monospace;
             min-height: 100vh;
             padding: 20px;
             background-image:
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 0, 0.03) 2px, rgba(0, 255, 0, 0.03) 4px);
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 105, 180, 0.03) 2px, rgba(255, 105, 180, 0.03) 4px);
             image-rendering: pixelated;
         }
 
@@ -66,16 +66,46 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 20px;
-            border: 3px solid #00ff00;
-            background: rgba(0, 255, 0, 0.05);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            border: 3px solid #ff69b4;
+            background: rgba(255, 105, 180, 0.05);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+            word-wrap: break-word;
         }
 
         h1 {
             font-size: 24px;
             margin-bottom: 15px;
-            text-shadow: 2px 2px #ff0000, -2px -2px #0000ff;
+            text-shadow: 2px 2px #ff1493, -2px -2px #ff69b4;
             letter-spacing: 3px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 16px;
+                letter-spacing: 1px;
+                line-height: 1.6;
+            }
+
+            header .subtitle {
+                font-size: 8px;
+                line-height: 1.6;
+            }
+
+            header > div {
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+            }
+
+            header .subtitle {
+                font-size: 7px;
+            }
         }
 
         .subtitle {
@@ -95,7 +125,7 @@
             justify-content: space-around;
             margin: 20px 0;
             padding: 15px;
-            border: 2px solid #00ff00;
+            border: 2px solid #ff69b4;
             background: rgba(0, 0, 0, 0.7);
             font-size: 10px;
         }
@@ -106,7 +136,7 @@
 
         .stat-value {
             font-size: 16px;
-            color: #ffff00;
+            color: #ff1493;
             margin-top: 5px;
         }
 
@@ -118,15 +148,15 @@
         }
 
         .voucher {
-            border: 2px solid #00ff00;
+            border: 2px solid #ff69b4;
             padding: 20px;
-            background: rgba(0, 20, 0, 0.8);
+            background: rgba(20, 0, 10, 0.8);
             position: relative;
             transition: all 0.3s;
         }
 
         .voucher:hover {
-            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
             transform: scale(1.02);
         }
 
@@ -150,7 +180,7 @@
         }
 
         .voucher-number {
-            color: #ffff00;
+            color: #ff1493;
         }
 
         .status {
@@ -160,9 +190,9 @@
         }
 
         .status.available {
-            color: #00ff00;
-            border-color: #00ff00;
-            background: rgba(0, 255, 0, 0.1);
+            color: #ff69b4;
+            border-color: #ff69b4;
+            background: rgba(255, 105, 180, 0.1);
         }
 
         .status.used {
@@ -180,8 +210,8 @@
             font-size: 20px;
             text-align: center;
             margin: 20px 0;
-            color: #ffff00;
-            text-shadow: 2px 2px rgba(255, 0, 0, 0.5);
+            color: #ff1493;
+            text-shadow: 2px 2px rgba(255, 105, 180, 0.5);
         }
 
         .voucher-info {
@@ -193,7 +223,7 @@
         .use-btn {
             width: 100%;
             padding: 12px;
-            background: #00ff00;
+            background: #ff69b4;
             color: #000;
             border: none;
             font-family: 'Press Start 2P', monospace;
@@ -204,8 +234,8 @@
         }
 
         .use-btn:hover:not(:disabled) {
-            background: #ffff00;
-            box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+            background: #ff1493;
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
             transform: translateY(-2px);
         }
 
@@ -242,7 +272,7 @@
 
         .cooldown-timer {
             font-size: 8px;
-            color: #ff0000;
+            color: #ff1493;
             margin-top: 10px;
             text-align: center;
         }
