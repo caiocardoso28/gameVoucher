@@ -276,10 +276,153 @@
             margin-top: 10px;
             text-align: center;
         }
+
+        /* Valentine Popup Styles */
+        .valentine-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .valentine-popup {
+            background: rgba(20, 0, 10, 0.95);
+            border: 4px solid #ff69b4;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.8);
+            animation: popupGlitch 3s infinite;
+        }
+
+        @keyframes popupGlitch {
+            0%, 90%, 100% { transform: translate(0) scale(1); }
+            92% { transform: translate(-3px, 3px) scale(1.01); }
+            94% { transform: translate(3px, -3px) scale(0.99); }
+            96% { transform: translate(-3px, -3px) scale(1.01); }
+        }
+
+        .valentine-title {
+            font-size: 14px;
+            color: #ff1493;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px #ff69b4;
+            line-height: 1.6;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 3px 3px #ff69b4; }
+            50% { text-shadow: 3px 3px #ff69b4, 0 0 20px #ff1493; }
+        }
+
+        .heart-container {
+            font-size: 40px;
+            margin: 20px 0;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(0.95); }
+        }
+
+        .valentine-message {
+            font-size: 11px;
+            color: #ff69b4;
+            margin: 20px 0;
+            line-height: 1.8;
+        }
+
+        .valentine-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .valentine-btn {
+            padding: 15px 30px;
+            background: #ff69b4;
+            color: #000;
+            border: 2px solid #ff1493;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .valentine-btn:hover {
+            background: #ff1493;
+            box-shadow: 0 0 30px rgba(255, 20, 147, 1);
+            transform: scale(1.05);
+        }
+
+        .valentine-btn:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .valentine-popup {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .valentine-title {
+                font-size: 11px;
+            }
+
+            .valentine-message {
+                font-size: 9px;
+            }
+
+            .valentine-btn {
+                font-size: 9px;
+                padding: 12px 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="scanline"></div>
+
+    <!-- Valentine Popup -->
+    <div id="valentineOverlay" class="valentine-overlay" style="display: none;">
+        <div class="valentine-popup">
+            <div class="valentine-title">
+                ◆ LIMITED TIME OFFER ◆
+            </div>
+            <div class="heart-container">
+                ❤️
+            </div>
+            <div class="valentine-message">
+                WILL YOU BE MY<br>VALENTINE?
+            </div>
+            <div class="valentine-buttons">
+                <button class="valentine-btn" onclick="acceptValentine('yes')">
+                    ▶ YES
+                </button>
+                <button class="valentine-btn" onclick="acceptValentine('hell-yes')">
+                    ▶ HELL YES
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <header class="glitch">
@@ -324,6 +467,48 @@
         const COOLDOWN_DAYS = 14;
         const VOUCHER_VALUE = 50;
         const EMAIL = 'caioleitecardoso@gmail.com'; // CHANGE THIS TO YOUR EMAIL
+
+        // Check if Valentine popup should be shown
+        function shouldShowValentinePopup() {
+            return !localStorage.getItem('valentineAnswered');
+        }
+
+        // Show Valentine popup on load
+        window.addEventListener('load', () => {
+            if (shouldShowValentinePopup()) {
+                setTimeout(() => {
+                    document.getElementById('valentineOverlay').style.display = 'flex';
+                }, 500);
+            }
+        });
+
+        // Handle Valentine acceptance
+        function acceptValentine(answer) {
+            // Mark as answered
+            localStorage.setItem('valentineAnswered', 'true');
+
+            // Reset all vouchers
+            voucherData = {
+                vouchers: Array(6).fill(null).map((_, i) => ({
+                    id: i + 1,
+                    used: false,
+                    usedDate: null
+                })),
+                lastUsedDate: null
+            };
+            saveData();
+
+            // Hide popup with animation
+            const overlay = document.getElementById('valentineOverlay');
+            overlay.style.animation = 'fadeIn 0.3s reverse';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                renderVouchers();
+
+                // Show success message
+                alert('💖 ALL VOUCHERS UNLOCKED! 💖\n\nYour vouchers have been reset and are ready to use!');
+            }, 300);
+        }
 
         // Initialize voucher data
         function initVouchers() {
